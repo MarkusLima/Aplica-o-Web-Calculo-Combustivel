@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Calculo de Quilometragem</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
+    rel="stylesheet" type="text/css">
+
+  <!-- Custom CSS -->
+  <link href="css/stylish-portfolio.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <a class="menu-toggle rounded" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a href="https://github.com/MarkusLima">Markus Lima</a>
+        <img
+          src="https://scontent-gig2-1.xx.fbcdn.net/v/t1.0-1/c0.0.160.160a/p160x160/25498486_1978087725539764_1559043733451580455_n.jpg?_nc_cat=111&_nc_sid=dbb9e7&_nc_ohc=9GMAZwR4ohUAX_unGMt&_nc_ht=scontent-gig2-1.xx&oh=38a8e9e026009fe464c959ec06401723&oe=5EA9889D"
+          alt="Markus" />
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header class="masthead d-flex">
+    <div class="container text-center my-auto">
+      <h2 class="mb-1">AV1- 132 - DESENVOLVIMENTO DE APLICAÇÕES WEB 2020/1</h2>
+      <h3 class="mb-5"><em>Solução Web Calcular consumo Km/L Combustível</em></h3>
+      <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+          <label>Digite Quantos Quilometros</label>
+          <input type="text" class="form-control" placeholder="0.00" id="quilometro">
+        </div>
+        <div class="col-md-auto">
+          <label>Digite Quantidade de Litros</label>
+          <input type="text" class="form-control" placeholder="0.00" id="litro">
+        </div>
+        <div class="col-md-auto">
+          <label>Digite Preço por Litros</label>
+          <input type="text" class="form-control" placeholder="0.00" id="preco">
+        </div>
+      </div>
+      <button onclick="calcular();" style="margin: 5%;" type="button"
+        class="btn btn-primary btn-xl js-scroll-trigger">Calcular</button>
+
+      <div class="row justify-content-md-center">
+        <div class="col-md-auto" id="resQuilometro">
+          <label>Digite Quantos Quilometros</label>
+        </div>
+        <div class="col-md-auto" id="resLitro">
+          <label>Digite Quantidade de Litros</label>
+        </div>
+        <div class="col-md-auto" id="resPreco">
+          <label>Digite Preço por Litros</label>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size: 15px; font-weight: bold;" id="res1"></div>
+        <div style="font-size: 15px; font-weight: bold;" id="res2"></div>
+        <div style="font-size: 15px; font-weight: bold;" id="res3"></div>
+        <div style="font-size: 15px; font-weight: bold;" id="res4"></div>
+      </div>
+
+    </div>
+    <div class="overlay"></div>
+  </header>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/stylish-portfolio.min.js"></script>
+
+  <script>
+
+    function calcular() {
+      //https://bomdemarca.com.br/blog/calcular-km-por-litro/#result
+
+      var quilometro = document.getElementById("quilometro").value.replace(/,/i, '.');
+      var litro = document.getElementById("litro").value.replace(/,/i, '.');
+      var preco = document.getElementById("preco").value.replace(/,/i, '.');
+
+      //resultadoValorQuilometroPorLitro = KM / L 
+      // KM - quilometro
+      // L - litro
+      // KL - resultadoValorQuilometroPorLitro
+      var resultadoValorQuilometroPorLitro = parseFloat(quilometro) / parseFloat(litro);
+
+      // Custo do Combustível = KT * (PL / KL)
+      // PL = preço por litro
+      // KL = média de quilômetros por litro
+      // KT = quilômetros percorridos na viagem
+      var resultadoValorCombustivel = parseFloat(litro) * (parseFloat(preco) / parseFloat(resultadoValorQuilometroPorLitro));
+
+      // Resultado valor por abastecimento
+      var resultadoValorAbastecimento = parseFloat(resultadoValorQuilometroPorLitro) * parseFloat(resultadoValorCombustivel);
+
+      //Custo combustível
+      var custoCombustível = parseFloat(preco) / parseFloat(resultadoValorQuilometroPorLitro);
+
+
+      console.log(quilometro + " Quilomentros")
+      console.log(litro + " litros")
+      console.log("Valor do Combustivel R$" + preco + "")
+      console.log("Você rodou " + quilometro + " KM com " + litro + " litros!");
+      console.log("Seu veículo faz " + resultadoValorQuilometroPorLitro + " KM/litro!")
+      console.log("O custo/combustível por KM é de R$" + custoCombustível + "")
+      console.log("Seu gasto de combustível é de R$" + resultadoValorAbastecimento + " para toda a viagem!")
+
+
+      document.getElementById("resQuilometro").innerHTML = quilometro + " Quilomentros";
+      document.getElementById("resLitro").innerHTML = litro + " litros";
+      document.getElementById("resPreco").innerHTML = "Valor do Combustivel R$" + preco + "";
+      document.getElementById("res1").innerHTML = "Você rodou " + quilometro + " KM com " + litro + " litros!";
+      document.getElementById("res2").innerHTML = "Seu veículo faz " + resultadoValorQuilometroPorLitro.toFixed(2) + " KM/litro!";
+      document.getElementById("res3").innerHTML = "O custo do combustível por KM é de R$" + custoCombustível.toFixed(2);
+      document.getElementById("res4").innerHTML = "Seu gasto de combustível é de R$" + resultadoValorAbastecimento.toFixed(2) + " para toda a viagem!";
+    }
+
+  </script>
+
+</body>
+
+</html>
